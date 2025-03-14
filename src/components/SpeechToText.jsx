@@ -93,8 +93,6 @@
 // };
 
 // export default SpeechToText;
-
-
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { FaMicrophone, FaStop } from "react-icons/fa";  // Importa los iconos de react-icons
@@ -107,8 +105,8 @@ const SpeechToText = () => {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
   
-  recognition.continuous = true;  // Mantener el reconocimiento activo
-  recognition.interimResults = true;  // Mostrar resultados intermedios
+  recognition.continuous = false;  // No permitir grabación continua
+  recognition.interimResults = false;  // No mostrar resultados intermedios
   recognition.lang = "es-ES"; // Español
   recognition.maxAlternatives = 1;  // Número máximo de resultados
 
@@ -129,7 +127,7 @@ const SpeechToText = () => {
 
   recognition.onresult = (event) => {
     let transcript = event.results[event.results.length - 1][0].transcript;
-    setText((prev) => prev + transcript + " ");
+    setText((prev) => prev + transcript + " ");  // Solo agrega el texto nuevo
   };
 
   const startRecording = () => {
